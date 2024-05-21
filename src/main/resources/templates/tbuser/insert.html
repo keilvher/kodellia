@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Bulletin Board</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Sign Up</h1>
+    <form id="signupForm" onsubmit="create(); return false;">
+        <div class="form-group">
+            <label for="create_username">Username:</label>
+            <input type="text" id="create_username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="create_password">Password:</label>
+            <input type="password" id="create_password" name="password" required>
+        </div>
+        <div class="form-group">
+            <button type="submit">Sign Up</button>
+        </div>
+    </form>
+</div>
+<script>
+    function create() {
+        $.ajax({
+            url: '/api/tbuser',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                'username': $("#create_username").val(),
+                'password': $("#create_password").val()
+            }),
+            beforeSend: function () {
+                // Pre-request logic (if needed)
+            },
+            success: function (data) {
+                alert(JSON.stringify(data));
+            },
+            error: function (request, status, error) {
+                alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            },
+            complete: function () {
+                // Post-request logic (if needed)
+            }
+        });
+    }
+</script>
+</body>
+</html>

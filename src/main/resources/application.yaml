@@ -1,0 +1,52 @@
+debug: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    com.thc.sprstudy: debug
+    org.springframework.web.servlet: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/springproj
+    username: root
+    password: imgmin8689!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+        jdbc.time_zone: Asia/Seoul
+        dialect: org.hibernate.dialect.MySQLDialect
+  thymeleaf:
+    cache: false
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+    thymeleaf:
+      cache: false
+    remote:
+      restart:
+        enabled: false
+  freemarker:
+    cache: false
+  sql:
+    init:
+      mode: always
+
+springdoc:
+  swagger-ui:
+    operations-sorter: alpha
+    tags-sorter: alpha
